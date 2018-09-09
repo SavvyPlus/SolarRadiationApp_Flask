@@ -4,13 +4,7 @@ from flask import request
 import boto3
 import json
 
-from pyathenajdbc import connect
-import contextlib
-from urllib.parse import quote_plus  # PY2: from urllib import quote_plus
-from sqlalchemy.engine import create_engine
-from sqlalchemy.sql.expression import select
-from sqlalchemy.sql.functions import func
-from sqlalchemy.sql.schema import Table, MetaData
+
 from data_process import process
 
 app = Flask(__name__)
@@ -124,7 +118,7 @@ def getLocation():
 FROM bom_prod_2_output
 WHERE (((ACOS( SIN(RADIANS(""" + str(lat) + """)) * SIN(RADIANS(bom_prod_2_output.latitude)) + COS(RADIANS(""" + str(
         lat) + """)) * COS(RADIANS(bom_prod_2_output.latitude)) * COS(RADIANS(bom_prod_2_output.longitude) - RADIANS(""" + str(
-        lng) + """)) ) * 6384.0999) <= 9)
+        lng) + """)) ) * 6384.0999) <= 2 )
     OR (bom_prod_2_output.latitude = """ + str(lat) + """
     AND bom_prod_2_output.longitude = """ + str(lng) + """))
     AND cast(year as integer) >= 2018
