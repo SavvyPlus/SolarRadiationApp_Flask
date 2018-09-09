@@ -203,4 +203,4 @@ WHERE (((ACOS( SIN(RADIANS(""" + str(lat) + """)) * SIN(RADIANS(bom_prod_2_outpu
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host= '0.0.0.0')
